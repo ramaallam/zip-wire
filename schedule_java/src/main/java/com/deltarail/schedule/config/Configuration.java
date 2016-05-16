@@ -1,6 +1,6 @@
 package com.deltarail.schedule.config;
 
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
@@ -29,7 +29,7 @@ public class Configuration implements Serializable{
         sc.hadoopConfiguration().set("textinputformat.record.delimiter", delimiter);
     }
     public static DynamoDB setupAndGetDynamoConfig(){
-        AmazonDynamoDBClient client = new AmazonDynamoDBClient(new ProfileCredentialsProvider()).withEndpoint("https://dynamodb.eu-west-1.amazonaws.com");
+        AmazonDynamoDBClient client = new AmazonDynamoDBClient(new DefaultAWSCredentialsProviderChain()).withEndpoint("https://dynamodb.eu-west-1.amazonaws.com");
         client.setRegion(Region.getRegion(Regions.EU_WEST_1));
         DynamoDB dynamoDB = new DynamoDB(client);
         return dynamoDB;
